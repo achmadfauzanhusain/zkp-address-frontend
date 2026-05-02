@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { useState } from "react";
 import { generateProof } from "@/lib/zk/generateProof";
+import { setLogin } from "@/services/auth";
+
+import Cookies from "js-cookie";
 
 export default function Home() {
   const [secret, setSecret] = useState("");
@@ -20,6 +23,20 @@ export default function Home() {
       console.error("Error generating proof:", error);
     } finally {
       setLoading(false);
+    }
+  }
+
+  const handleLogin = async() => {
+    const data = { proof, publicSignals }
+
+    const response = await setLogin(data)
+    if(response.error) {
+      console.log("Login failed:", response.error);
+    } else {
+      const token = response.data.data
+      const tokenBase64 = btoa(token);
+      Cookies.set("token", tokenBase64, { expires: 7 });
+      console.log("berhasil login!, cookies :", response.data.data)
     }
   }
 
@@ -54,6 +71,15 @@ export default function Home() {
           <pre className="bg-gray-100 p-4 overflow-auto">{JSON.stringify(publicSignals, null, 2)}</pre>
         </div>
       )}
+
+      <div className="mt-24">
+        <h1 className="text-3xl font-semibold">Login</h1>
+        <p className="text-sm opacity-75">result of genrate proof is automatically use!</p>
+
+        <button className="bg-blue-400 text-white w-full py-3 mt-2 cursor-pointer hover:bg-blue-500 transition-all duration-300" onClick={handleLogin}>
+          {loading ? "loading..." : "login"}
+        </button>
+      </div>
     </div>
   );
 }
