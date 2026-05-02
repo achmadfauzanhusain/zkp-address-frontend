@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useState } from "react";
 import { generateProof } from "@/lib/zk/generateProof";
 
@@ -24,6 +25,9 @@ export default function Home() {
 
   return (
     <div className="mt-24 px-32">
+      <Link href="/register" className="text-sm text-blue-500 hover:underline">
+        belum punya akun?
+      </Link>
       <div className="mt-8">
         <h1 className="text-3xl font-semibold">Generate Proof</h1>
         <p className="text-sm opacity-75">Generate proof before login!</p>
