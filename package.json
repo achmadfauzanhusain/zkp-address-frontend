@@ -8,8 +8,11 @@
     "start": "next start"
   },
   "dependencies": {
+    "@reown/appkit": "^1.8.19",
+    "@reown/appkit-adapter-ethers": "^1.8.19",
     "axios": "^1.15.2",
     "circomlibjs": "^0.1.7",
+    "ethers": "^6.16.0",
     "js-cookie": "^3.0.5",
     "next": "16.2.4",
     "react": "19.2.4",
