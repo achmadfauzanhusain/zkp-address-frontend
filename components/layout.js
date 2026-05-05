@@ -1,4 +1,5 @@
 import { Poppins } from "next/font/google";
+import { AppKitProvider } from "@/lib/appkit/provider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -7,10 +8,12 @@ const poppins = Poppins({
 
 export default function Layout({ children }) {
   return (
-    <>
-        <main className={poppins.className + " pb-14"}>
-            {children}
-        </main>
-    </>
+      <>
+        <AppKitProvider>
+          <main className={poppins.className + " pb-14"}>
+              {children}
+          </main>
+        </AppKitProvider>
+      </>
   )
 }
